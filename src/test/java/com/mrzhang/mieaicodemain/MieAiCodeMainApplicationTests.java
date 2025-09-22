@@ -24,7 +24,7 @@ class MieAiCodeMainApplicationTests {
 
     @Test
     void generateAndSaveCodeStream() {
-        Flux<String> codeStream = aiCodeGeneratorFacade.generateAndSaveCodeStream("打卡记录网站", CodeGenTypeEnum.MULTI_FILE);
+        Flux<String> codeStream = aiCodeGeneratorFacade.generateAndSaveCodeStream("打卡记录网站", CodeGenTypeEnum.MULTI_FILE,1L);
         // 阻塞等待所有数据收集完成
         List<String> result = codeStream.collectList().block();
         // 验证结果
@@ -32,5 +32,18 @@ class MieAiCodeMainApplicationTests {
         String completeContent = String.join("", result);
         Assertions.assertNotNull(completeContent);
     }
+
+
+    @Test
+    void generateAndSaveCodeStream1() {
+        Flux<String> codeStream = aiCodeGeneratorFacade.generateAndSaveCodeStream("任务记录网站", CodeGenTypeEnum.MULTI_FILE, 1L);
+        // 阻塞等待所有数据收集完成
+        List<String> result = codeStream.collectList().block();
+        // 验证结果
+        Assertions.assertNotNull(result);
+        String completeContent = String.join("", result);
+        Assertions.assertNotNull(completeContent);
+    }
+
 
 }

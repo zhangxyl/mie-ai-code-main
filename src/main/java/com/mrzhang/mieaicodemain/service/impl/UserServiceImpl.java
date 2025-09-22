@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mrzhang.mieaicodemain.constant.UserConstant.ADMIN_ROLE;
 import static com.mrzhang.mieaicodemain.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
@@ -182,5 +183,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
         return DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
     }
 
+    @Override
+    public boolean isAdmin(HttpServletRequest request) {
+        // 仅管理员可查看
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User user = (User) userObj;
+        return isAdmin(user);
+    }
+
+    @Override
+    public boolean isAdmin(User user) {
+        return user != null && ADMIN_ROLE.equals(user.getUserRole());
+    }
 
 }
