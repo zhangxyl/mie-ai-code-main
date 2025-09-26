@@ -97,7 +97,7 @@ public class AppController {
         if (!oldApp.getUserId().equals(user.getId()) && !userService.isAdmin(request)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
-        boolean b = appService.removeById(id);
+        boolean b = appService.removeAppWithChatHistory(id);
         return ResultUtils.success(b);
     }
 
@@ -198,7 +198,7 @@ public class AppController {
         }
         App oldapp = appService.getById(deleteRequest.getId());
         ThrowUtils.throwIf(oldapp == null, ErrorCode.NOT_FOUND_ERROR);
-        boolean b = appService.removeById(deleteRequest.getId());
+        boolean b = appService.removeAppWithChatHistory(deleteRequest.getId());
         return ResultUtils.success(b);
     }
 

@@ -68,4 +68,12 @@ public interface AppService extends IService<App> {
     Flux<String> chatToGenCode(Long appId, String message, User loginUser);
 
     String deployApp(Long appId, User loginUser);
+
+    /**
+     * 删除应用及其关联的对话历史
+     *
+     * @param appId 应用ID
+     * @return 删除结果
+     */
+    boolean removeAppWithChatHistory(Long appId);
 }
